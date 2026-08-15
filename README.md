@@ -49,3 +49,53 @@ ML-Lab-2547204/
 ├── CIA 3.ipynb
 ├── Maternal Health Risk Data Set.csv
 └── README.md
+
+## Installation
+
+Create and activate a Python environment if needed, then install the required packages:
+
+```bash
+python -m pip install pandas numpy matplotlib seaborn scikit-learn lime jupyter
+```
+
+## How to Run
+
+1. Clone or download this repository.
+2. Ensure `Maternal Health Risk Data Set.csv` is in the same folder as `CIA 3.ipynb`.
+3. Start Jupyter Notebook:
+
+```bash
+jupyter notebook
+```
+
+4. Open `CIA 3.ipynb`.
+5. Run all cells from top to bottom.
+6. Review the model-comparison table, confusion matrices, global importance plot, LIME explanation, and fairness results.
+
+## Final Test Results
+
+| Model | Macro-F1 | Macro Precision | Macro Recall | ROC-AUC (OvR) |
+|---|---:|---:|---:|---:|
+| Logistic Regression (Baseline) | 0.578874 | 0.598116 | 0.569020 | 0.743871 |
+| Random Forest (Bagging) | **0.616898** | **0.654887** | 0.603718 | **0.803147** |
+| AdaBoost (Boosting) | 0.569916 | 0.666529 | 0.562574 | 0.793185 |
+| Voting Ensemble | 0.615482 | 0.628758 | **0.605715** | 0.767226 |
+
+Random Forest achieved the strongest overall test performance. It improved Macro-F1 by 0.038024 and ROC-AUC by 0.059276 compared with the Logistic Regression baseline.
+
+## Explainability
+
+Global permutation importance identified blood sugar, systolic blood pressure, Pulse Pressure, MAP, and body temperature as influential variables.
+
+A LIME explanation was generated for a realistic synthetic patient record. The predicted class was high risk with a confidence of 0.914. Blood sugar and systolic blood pressure were the strongest local contributors to that prediction.
+
+Feature importance describes model behaviour and statistical association within this dataset; it does not establish medical causation.
+
+## Ethics and Limitations
+
+- The project is intended only for triage support, not diagnosis or treatment.
+- False negatives may delay care for high-risk patients.
+- False positives may create anxiety and unnecessary referral burden.
+- The teen subgroup showed weaker performance, so fairness cannot be assumed.
+- The dataset is small and may not represent all populations or healthcare settings.
+- External validation, prospective clinical testing, privacy safeguards, monitoring, and clinician oversight are required before real-world deployment.
